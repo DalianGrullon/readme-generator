@@ -4,31 +4,101 @@ const generateMarkdown = require('./utils/generateMarkdown');
 
 const questions = [
     // project title
-    'What is the title of your project?',
+        {
+            name: 'title',
+            type: 'input',
+            message: 'What is the title of your project?'
+        },
     // description
-    'What was your motivation for developing this project?',
-    'Why did you build this project?',
-    'What problem does this project solve?',
-    'What did you learn?',
+        {
+            name: 'motivation',
+            type: 'input',
+            message: 'What was your motivation for developing this project?'
+        },
+        {
+            name: 'reason',
+            type: 'input',
+            message: 'Why did you build this project?'
+        },
+        {
+            name: 'solves',
+            type: 'input',
+            message: 'What problem does this project solve?'
+        },
+        {
+            name: 'learn',
+            type: 'input',
+            message: 'What did you learn?'
+        },
     // installation
-    'What is the first step to installing this project?',
-    'Would you like to add another step?',
-    'What is the next step to installing this project?',
+        {
+            name: 'installation',
+            type: 'confirm',
+            message: 'Would you like to include installation instructions?'
+        },
+        {
+            name: 'installationSteps',
+            type: 'input',
+            message: 'What are the steps for installation?',
+            when(answers) {
+                return answers.installation;
+            }
+        },
     // usage
-    'What are the instructions and examples for use?',
-    // contribution,
-    'Would you like to generate your own contribution rights? Or follow the industry standard Contributor Covenant?',
+        {
+            name: 'usage',
+            type: 'input',
+            message: 'What are the instructions for use of this project?',
+        },
+    // contribution
+        {
+            name: 'contribution',
+            type: 'list',
+            message: 'Choose one of the options below to determine contribution rights',
+            choices: ['Generate your own', 'Use Contributor Covenant']
+        },
+        {
+            name: 'ownContribution',
+            type: 'input',
+            message: 'Since you chose to generate your own contribution rights. Please specify them.',
+            when(answers) {
+                return answers.contribution === 'Generate your own';
+            }
+        },
     // tests
-    'What is the first step to testing this project?',
-    'Would you like to add another test?',
-    'What is the next step to testing this project?',
+        {
+            name: 'test',
+            type: 'input',
+            message: 'How can this project be tested?'
+        },
     // questions
-    'What is your GitHub username?',
-    "What is your email?",
-    'Provide brief instructions for contacting you via email.',
+        {
+            name: 'github',
+            type: 'input',
+            message: 'What is your GitHub username?'
+        },
+        {
+            name: 'email',
+            type: 'input',
+            message: 'What is your email?'
+        },
+        {
+            name: 'emailUse',
+            type: 'input',
+            message: 'When contacted via email, how should users structure their emails for additional questions?'
+        },
     // licensing
-    'Which licensing will this project be using?'
-
+        {
+            name: 'fullName',
+            type: 'input',
+            message: 'For licensing purposes, what is your First and Last name?'
+        },
+        {
+            name: 'license',
+            type: 'list',
+            choices: ['apache-2.0', 'isc', 'mit', 'gpl-3.0'],
+            message: 'Which licensing will this project be using?'
+        },
 ];
 
 function writeToFile(fileName, data) {
@@ -38,6 +108,12 @@ function writeToFile(fileName, data) {
 }
 
 // TODO: Create a function to initialize app
-function init() {}
+function init() {
+    inquirer
+        .prompt(questions)
+        .then(responses => {
+            
+        })
+}
 
 init();
