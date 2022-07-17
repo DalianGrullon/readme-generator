@@ -27,7 +27,7 @@ function renderLicenseSection(license, year, name) {
         you may not use this file except in compliance with the License.
         You may obtain a copy of the License at
      
-            http://www.apache.org/licenses/LICENSE-2.0
+            ${renderLicenseLink(license)}
      
         Unless required by applicable law or agreed to in writing, software
         distributed under the License is distributed on an "AS IS" BASIS,
@@ -36,7 +36,7 @@ function renderLicenseSection(license, year, name) {
         limitations under the License.`;
         break;
       case 'isc':
-        licenseInfo = `ISC License
+        licenseInfo = `ISC License ${renderLicenseLink(license)}
 
         Copyright (c) ${year} ${name}
         
@@ -53,7 +53,7 @@ function renderLicenseSection(license, year, name) {
         PERFORMANCE OF THIS SOFTWARE.`;
         break;
       case 'mit':
-        licenseInfo = `MIT License
+        licenseInfo = `MIT License ${renderLicenseLink(license)}
 
         Copyright (c) ${year} ${name}
         
@@ -102,11 +102,74 @@ function renderLicenseSection(license, year, name) {
   }
 }
 
+function renderContributionBadge(choice) {
+  if (choice === 'Use Contributor Covenant') {
+    return `[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)`;
+  } else {
+    return '';
+  }
+}
+
+function generateContribution(own) {
+  if (own) {
+    return own;
+  } else {
+    return `The [Contributor Covenant](https://www.contributor-covenant.org/) lays the foundation for contribution standards and the must be followed.`;
+  }
+}
+
 // TODO: Create a function to generate the markdown file
 function generateMarkdown(data) {
+  let currentYear = new Date().getFullYear();
+  
   return `# ${data.title}
+${renderLicenseBadge(data.license)} ${renderContributionBadge(data.contribution)}
 
-`;
+## Description
+
+- My motivation for this project:
+  - ${data.motivation}
+- Why I built this project:
+  - ${data.reason}
+- This project solves the following problem(s):
+  - ${data.solves}
+- In completing this project, I learned the following:
+  - ${data.learn}
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contribution](#how-to-contribute)
+- [Tests](#tests)
+- [Questions](#questions)
+- [License](#license)
+
+## Installation
+
+${data.installation}
+
+## Usage
+
+${data.usage}
+
+## How to Contribute
+
+${generateContribution(data.ownContribution)}
+
+## Tests
+
+${data.test}
+
+## Questions
+
+[My GitHub](https://github.com/${data.github})
+
+When sending me an [email](${data.email}) ${data.emailUse}
+
+## License
+
+${renderLicenseSection(data.license, currentYear, data.fullName)}`;
 }
 
 module.exports = generateMarkdown;

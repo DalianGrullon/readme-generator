@@ -23,7 +23,7 @@ const questions = [
         {
             name: 'solves',
             type: 'input',
-            message: 'What problem does this project solve?'
+            message: 'What problem(s) does this project solve?'
         },
         {
             name: 'learn',
@@ -33,16 +33,8 @@ const questions = [
     // installation
         {
             name: 'installation',
-            type: 'confirm',
-            message: 'Would you like to include installation instructions?'
-        },
-        {
-            name: 'installationSteps',
             type: 'input',
             message: 'What are the steps for installation?',
-            when(answers) {
-                return answers.installation;
-            }
         },
     // usage
         {
@@ -111,9 +103,7 @@ function writeToFile(fileName, data) {
 function init() {
     inquirer
         .prompt(questions)
-        .then(responses => {
-            
-        })
+        .then(responses => {})
 }
 
 init();
