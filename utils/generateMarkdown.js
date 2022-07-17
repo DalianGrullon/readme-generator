@@ -7,10 +7,12 @@ function renderLicenseBadge(license) {
 }
 
 function renderLicenseLink(license) {
-  if (license) {
-    return `https://choosealicense.com/licenses/${license}/`;
+  if (license === 'apache') {
+    return `https://choosealicense.com/licenses/${license}-2.0/`;
+  } else if (license === 'gpl') {
+      return `https://choosealicense.com/licenses/${license}-3.0/`;
   } else {
-    return '';
+      return '';
   }
 }
 
@@ -20,7 +22,7 @@ function renderLicenseSection(license, year, name) {
 
   if (license) {
     switch (license) {
-      case 'apache-2.0':
+      case 'apache':
         licenseInfo = `Copyright ${year} ${name}
 
         Licensed under the Apache License, Version 2.0 (the "License");
@@ -75,7 +77,7 @@ function renderLicenseSection(license, year, name) {
         OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
         SOFTWARE.`;
         break;
-      case 'gpl-3.0':
+      case 'gpl':
         licenseInfo = `Copyright (C) ${year} ${name}
 
         This program is free software: you can redistribute it and/or modify
@@ -179,7 +181,7 @@ ${data.test}
 You can contact me through [My GitHub](https://github.com/${data.github}) or my [My Email](mailto:${data.email}?)
 <br>
 <br>
-When sending me an ${data.emailUse}
+When sending me an email ${data.emailUse}
 
 <br>
 
