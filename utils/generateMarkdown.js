@@ -1,6 +1,6 @@
 function renderLicenseBadge(license) {
   if (license) {
-    return `https://img.shields.io/badge/license-${license}-blue`;
+    return `![](https://img.shields.io/badge/license-${license}-blue)`;
   } else {
     return '';
   }
@@ -94,9 +94,11 @@ function renderLicenseSection(license, year, name) {
       default:
         break;
     }
-    licenseSection = `# License
+    licenseSection = `## License
     
     ${licenseInfo}`;
+
+    return licenseSection
   } else {
     return '';
   }
@@ -118,7 +120,6 @@ function generateContribution(own) {
   }
 }
 
-// TODO: Create a function to generate the markdown file
 function generateMarkdown(data) {
   let currentYear = new Date().getFullYear();
   
@@ -136,6 +137,8 @@ ${renderLicenseBadge(data.license)} ${renderContributionBadge(data.contribution)
 - In completing this project, I learned the following:
   - ${data.learn}
 
+<br>
+
 ## Table of Contents
 
 - [Installation](#installation)
@@ -145,29 +148,40 @@ ${renderLicenseBadge(data.license)} ${renderContributionBadge(data.contribution)
 - [Questions](#questions)
 - [License](#license)
 
+<br>
+
 ## Installation
 
 ${data.installation}
+
+<br>
 
 ## Usage
 
 ${data.usage}
 
+<br>
+
 ## How to Contribute
 
 ${generateContribution(data.ownContribution)}
+
+<br>
 
 ## Tests
 
 ${data.test}
 
+<br>
+
 ## Questions
 
-[My GitHub](https://github.com/${data.github})
+You can contact me through [My GitHub](https://github.com/${data.github}) or my [My Email](mailto:${data.email}?)
+<br>
+<br>
+When sending me an ${data.emailUse}
 
-When sending me an [email](${data.email}) ${data.emailUse}
-
-## License
+<br>
 
 ${renderLicenseSection(data.license, currentYear, data.fullName)}`;
 }
