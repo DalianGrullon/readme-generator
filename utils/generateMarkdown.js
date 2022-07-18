@@ -12,7 +12,7 @@ function renderLicenseLink(license) {
   } else if (license === 'gpl') {
       return `https://choosealicense.com/licenses/${license}-3.0/`;
   } else {
-      return '';
+      return `https://choosealicense.com/licenses/${license}/`;
   }
 }
 
